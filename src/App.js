@@ -1,23 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { useState } from "react";
+import { Button } from 'react-bootstrap';
 
 function App() {
+  const [count, setCount] = useState(0);
+  const [show, setShow] = useState(false);
+  const handleIncrement = () => {
+    setCount(count + 1);
+  };
+  const handleDecrement = () => {
+    setCount(count - 1);
+  };
+  const handleShow = () => {
+    if (show) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button onClick={handleIncrement}>+</button>
+        <h1>{count}</h1>
+        <button onClick={handleDecrement}>-</button>
+      </div>
+      <div>
+        <button onClick={handleShow}>Show</button>
+      </div>
+      {show && <h1>hello</h1>}
     </div>
   );
 }
