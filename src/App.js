@@ -1,35 +1,26 @@
-import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
+import "bootstrap/dist/css/bootstrap.min.css";
 import { useState } from "react";
-import { Button } from 'react-bootstrap';
+import List from "./components/List";
+import AddTask from "./components/AddTask";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [show, setShow] = useState(false);
-  const handleIncrement = () => {
-    setCount(count + 1);
+  const list = [
+    { id: "0", text: "going to the school", done: false, date: new Date() },
+    { id: "1", text: "metting my mom", done: false, date: new Date() }
+  ];
+  const [listOfTasks, setList] = useState(list);
+  const deleteTask = (id) => {
+    setList(listOfTasks.filter((elt) => elt.id != id));
   };
-  const handleDecrement = () => {
-    setCount(count - 1);
+  const add = (task) => {
+    const addedList = [...listOfTasks, task];
+    setList(addedList);
   };
-  const handleShow = () => {
-    if (show) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  };
+
   return (
-    <div className="App">
-      <div>
-        <button onClick={handleIncrement}>+</button>
-        <h1>{count}</h1>
-        <button onClick={handleDecrement}>-</button>
-      </div>
-      <div>
-        <button onClick={handleShow}>Show</button>
-      </div>
-      {show && <h1>hello</h1>}
+    <div>
+      <AddTask add={add} />
+      <List list={listOfTasks} deleteTask={deleteTask} />
     </div>
   );
 }
