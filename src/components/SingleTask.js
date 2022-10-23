@@ -1,14 +1,25 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-function SingleTask({ task, deleteTask }) {
+import Form from "react-bootstrap/Form";
+function SingleTask({ task, deleteTask, doneTask }) {
   const handleDelete = () => {
-    console.log(task);
+    deleteTask(task.id);
+  };
+  const handleDone = () => {
+    doneTask(task.id);
   };
   return (
     <Card style={{ width: "18rem" }}>
       <Card.Body>
-        <Card.Title>{task.text}</Card.Title>
+        <Card.Title
+          style={{ textDecoration: task.done ? "line-through" : "none" }}
+        >
+          {task.text}
+        </Card.Title>
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check type="checkbox" label="done" onClick={handleDone} />
+        </Form.Group>
         <div>
           <p>{task.date && task.date.getDate()}</p>
           <p>
